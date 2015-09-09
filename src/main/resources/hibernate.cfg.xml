@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/cosw1?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">cosw1</property>
+    <property name="hibernate.connection.password">cosw1gr11</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping class="com.mycompany.models.ProductoEnVenta"/>
+    <mapping class="com.mycompany.models.Factura"/>
+    <mapping class="com.mycompany.models.TransaccionBancaria"/>
+    <mapping class="com.mycompany.models.Ubicacion"/>
+    <mapping class="com.mycompany.models.Producto"/>
+    <mapping class="com.mycompany.models.Novedad"/>
+    <mapping class="com.mycompany.models.DetalleFactura"/>
+    <mapping class="com.mycompany.models.Minorista"/>
+    <mapping class="com.mycompany.models.Campesino"/>
+    <mapping class="com.mycompany.models.Transportista"/>
+    <mapping class="com.mycompany.models.Vehiculo"/>
+    <mapping class="com.mycompany.models.Despacho"/>
+    <mapping class="com.mycompany.models.Ruta"/>
+    <mapping class="com.mycompany.models.DetalleFacturaId"/>
+  </session-factory>
+</hibernate-configuration>
