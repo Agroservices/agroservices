@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="PersistenceTest" time="5.82" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="PersistenceTest" time="2.252" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_40\jre\bin"/>
@@ -16,7 +16,7 @@
     <property name="sun.os.patch.level" value=""/>
     <property name="test" value="PersistenceTest"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\Andres Barrero\Documents\COSW\Esperemos que esta\Agroservices_12_09_15"/>
+    <property name="user.dir" value="C:\Users\Andres Barrero\Documents\COSW\proyecto\Agroservices"/>
     <property name="java.runtime.version" value="1.8.0_40-b26"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_40\jre\lib\endorsed"/>
@@ -62,5 +62,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="PersistenceTest" name="consultarRutasAsignadas" time="5.35"/>
+  <testcase classname="PersistenceTest" name="consultarRutasAsignadas" time="2.105"/>
 </testsuite>
