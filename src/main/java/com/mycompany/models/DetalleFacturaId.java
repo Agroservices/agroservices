@@ -1,5 +1,7 @@
 package com.mycompany.models;
-// Generated Sep 8, 2015 3:54:08 PM by Hibernate Tools 4.3.1
+
+
+// Generated 12/09/2015 04:52:35 PM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -11,8 +13,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class DetalleFacturaId  implements java.io.Serializable {
 
-
-     //private static final long serialVersionUID = 3237914100408508473L;
+    private static final long serialVersionUID = 3237914100408508473L;
      private int productosEnVentaIdProductosEnVenta;
      private int facturasIdFacturas;
 

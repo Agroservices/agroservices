@@ -1,5 +1,7 @@
 package com.mycompany.models;
-// Generated Sep 8, 2015 3:54:08 PM by Hibernate Tools 4.3.1
+
+
+// Generated 12/09/2015 04:52:35 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -26,8 +28,8 @@ public class DetalleFactura  implements java.io.Serializable {
      private DetalleFacturaId id;
      private Factura facturas;
      private ProductoEnVenta productosEnVenta;
-     private String cantidadComprada;
-     private String precioVenta;
+     private float cantidadComprada;
+     private float precioVenta;
      private boolean yaSeEntrego;
      private Set<Despacho> despachoses = new HashSet<Despacho>(0);
 
@@ -35,7 +37,7 @@ public class DetalleFactura  implements java.io.Serializable {
     }
 
 	
-    public DetalleFactura(DetalleFacturaId id, Factura facturas, ProductoEnVenta productosEnVenta, String cantidadComprada, String precioVenta, boolean yaSeEntrego) {
+    public DetalleFactura(DetalleFacturaId id, Factura facturas, ProductoEnVenta productosEnVenta, float cantidadComprada, float precioVenta, boolean yaSeEntrego) {
         this.id = id;
         this.facturas = facturas;
         this.productosEnVenta = productosEnVenta;
@@ -43,7 +45,7 @@ public class DetalleFactura  implements java.io.Serializable {
         this.precioVenta = precioVenta;
         this.yaSeEntrego = yaSeEntrego;
     }
-    public DetalleFactura(DetalleFacturaId id, Factura facturas, ProductoEnVenta productosEnVenta, String cantidadComprada, String precioVenta, boolean yaSeEntrego, Set<Despacho> despachoses) {
+    public DetalleFactura(DetalleFacturaId id, Factura facturas, ProductoEnVenta productosEnVenta, float cantidadComprada, float precioVenta, boolean yaSeEntrego, Set <Despacho>despachoses) {
        this.id = id;
        this.facturas = facturas;
        this.productosEnVenta = productosEnVenta;
@@ -88,22 +90,22 @@ public class DetalleFactura  implements java.io.Serializable {
     }
 
     
-    @Column(name="cantidadComprada", nullable=false, length=45)
-    public String getCantidadComprada() {
+    @Column(name="cantidadComprada", nullable=false, precision=12, scale=0)
+    public float getCantidadComprada() {
         return this.cantidadComprada;
     }
     
-    public void setCantidadComprada(String cantidadComprada) {
+    public void setCantidadComprada(float cantidadComprada) {
         this.cantidadComprada = cantidadComprada;
     }
 
     
-    @Column(name="precioVenta", nullable=false, length=45)
-    public String getPrecioVenta() {
+    @Column(name="precioVenta", nullable=false, precision=12, scale=0)
+    public float getPrecioVenta() {
         return this.precioVenta;
     }
     
-    public void setPrecioVenta(String precioVenta) {
+    public void setPrecioVenta(float precioVenta) {
         this.precioVenta = precioVenta;
     }
 
@@ -122,7 +124,7 @@ public class DetalleFactura  implements java.io.Serializable {
         return this.despachoses;
     }
     
-    public void setDespachoses(Set<Despacho> despachoses) {
+    public void setDespachoses(Set <Despacho>despachoses) {
         this.despachoses = despachoses;
     }
 

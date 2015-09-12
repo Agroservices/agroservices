@@ -1,5 +1,7 @@
 package com.mycompany.models;
-// Generated Sep 8, 2015 3:54:08 PM by Hibernate Tools 4.3.1
+
+
+// Generated 12/09/2015 04:52:35 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -40,7 +42,7 @@ public class Campesino  implements java.io.Serializable {
         this.apellidos = apellidos;
         this.telefono = telefono;
     }
-    public Campesino(int idCampesinos, Ubicacion ubicaciones, String nombres, String apellidos, String telefono, String correo, Set<ProductoEnVenta> productosEnVentas) {
+    public Campesino(int idCampesinos, Ubicacion ubicaciones, String nombres, String apellidos, String telefono, String correo, Set <ProductoEnVenta>productosEnVentas) {
        this.idCampesinos = idCampesinos;
        this.ubicaciones = ubicaciones;
        this.nombres = nombres;
@@ -113,11 +115,11 @@ public class Campesino  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="campesinos")
-    public Set<ProductoEnVenta> getProductosEnVentas() {
+    public Set <ProductoEnVenta>getProductosEnVentas() {
         return this.productosEnVentas;
     }
     
-    public void setProductosEnVentas(Set<ProductoEnVenta> productosEnVentas) {
+    public void setProductosEnVentas(Set <ProductoEnVenta>productosEnVentas) {
         this.productosEnVentas = productosEnVentas;
     }
 
