@@ -16,15 +16,9 @@ import com.mycompany.models.Ruta;
 import com.mycompany.models.TransaccionBancaria;
 import com.mycompany.models.Transportista;
 import com.mycompany.models.Ubicacion;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import main.PersistenceFacade;
-//import main.PersistenceFacade;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -32,7 +26,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.After;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -247,9 +241,20 @@ public class PersistenceTest {
         session.save(d7);
         session.save(d8);
         session.save(d9);
-        System.out.println("******************************************"+t3.getIdTransportistas());
-        PersistenceFacade.rutasPorTransportista(session, t3, null);
+        /*******************************************************************
+        CREACION DE PRUEBAS
+        ********************************************************************/
+        Date d = new Date(2015-1900,8,12);
+        Despacho ddd = (Despacho)session.load(Despacho.class, 7);
+        List<Integer> rutas = PersistenceFacade.rutasPorTransportista(session, t3, d);
+        List<Integer> productos = PersistenceFacade.productosPorFecha(session, t3, d);
         
+        assertEquals("Cada producto a recoger tiene asociada una ruta", rutas.size(), productos.size());
+        assertEquals("Se espera que el numero de rutas asignadas al transportista 3 para la fecha sean dos", rutas.size(), 2);
+        assertEquals("Se espera que el numero de productos a recoger por el transportista 3 para la fecha sean dos", productos.size(), 2);
+        assertEquals("Se espera que el primer producto a recoger sea lechuga", productos.get(0), "Lechuga");
+        assertTrue("Se espera que la primera ruta a recorrer sea la 7", rutas.get(0).equals(7));
+        assertEquals("La primera ruta, es decir la 7 debe recoger el primer producto, es decir lechuga", ddd.getDetalleFactura().getProductosEnVenta().getProductos().getNombre(), "Lechuga");
         assertTrue(true);
         tx.commit();
     }

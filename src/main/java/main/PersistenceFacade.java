@@ -60,17 +60,38 @@ public class PersistenceFacade {
         
     }
     
-    public static void rutasPorTransportista(Session s, Transportista t, Date d){
+    /**
+     * Consulta el Id de las rutas que tiene que recorrer un transportista en determinada fecha
+     * @param s Sesion de la base de datos
+     * @param t Transportista al que se le quiere consultar las rutas
+     * @param d Fecha en la que se quieren consultar las rutas
+     * @return Una lista con el Id de las rutas 
+     */
+    public static List<Integer> rutasPorTransportista(Session s, Transportista t, Date d){
+         
+        Query q2 = s.createQuery("SELECT r.idRutas FROM Ruta r WHERE r.fechaInicio=:fechaID AND r.transportistas.idTransportistas= :transportistaID");
+        q2.setParameter("transportistaID", t.getIdTransportistas());
+        q2.setParameter("fechaID", d);
+        List<Integer> rutas = q2.list();
         
-        Query q = s.createQuery("SELECT p.productos.nombre FROM ProductoEnVenta p WHERE p.idProductosEnVenta = (SELECT d.detalleFactura.productosEnVenta FROM Despacho d WHERE d.rutas.transportistas= 963852741)");
-        //q.setParameter("transportistaID", t.getIdTransportistas());
+        return rutas;
+    }
+    
+    /**
+     * Consulta el nombre de los productos que tiene que recoger un transportista en determinada fecha
+     * @param s Sesion de la base de datos
+     * @param t Transportista al que se le quiere consultar las rutas
+     * @param d Fecha en la que se quieren consultar las rutas
+     * @return Una lista con el nombre de las productos
+     */
+    public static List<Integer> productosPorFecha(Session s, Transportista t, Date d){
         
-        List<Long> productos = q.list();
-        
-        for(int cont=0; cont<productos.size(); cont++){
-            System.out.println("Propducto a recoger: "+productos.get(cont));
-        }
-        //System.out.println("Llegoooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        Query q = s.createQuery("SELECT p.productos.nombre FROM ProductoEnVenta p WHERE p.idProductosEnVenta in "
+                + "(SELECT d.detalleFactura.productosEnVenta.idProductosEnVenta FROM Despacho d WHERE d.rutas.transportistas.idTransportistas= :transportistaID AND d.rutas.fechaInicio=:fechaID)");
+        q.setParameter("transportistaID", t.getIdTransportistas());
+        q.setParameter("fechaID", d);
+        List<Integer> productos = q.list();
+        return productos;
     }
     
 }
