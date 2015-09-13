@@ -8,6 +8,7 @@ package main;
 import com.mycompany.models.Campesino;
 import com.mycompany.models.Producto;
 import com.mycompany.models.ProductoEnVenta;
+import com.mycompany.models.Transportista;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,6 +58,19 @@ public class PersistenceFacade {
        
         return respuesta;
         
+    }
+    
+    public static void rutasPorTransportista(Session s, Transportista t, Date d){
+        
+        Query q = s.createQuery("SELECT p.productos.nombre FROM ProductoEnVenta p WHERE p.idProductosEnVenta = (SELECT d.detalleFactura.productosEnVenta FROM Despacho d WHERE d.rutas.transportistas= 963852741)");
+        //q.setParameter("transportistaID", t.getIdTransportistas());
+        
+        List<Long> productos = q.list();
+        
+        for(int cont=0; cont<productos.size(); cont++){
+            System.out.println("Propducto a recoger: "+productos.get(cont));
+        }
+        //System.out.println("Llegoooooooooooooooooooooooooooooooooooooooooooooooooooo");
     }
     
 }

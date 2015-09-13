@@ -5,13 +5,16 @@
  */
 
 import com.mycompany.models.Campesino;
+import com.mycompany.models.Despacho;
 import com.mycompany.models.DetalleFactura;
 import com.mycompany.models.DetalleFacturaId;
 import com.mycompany.models.Factura;
 import com.mycompany.models.Minorista;
 import com.mycompany.models.Producto;
 import com.mycompany.models.ProductoEnVenta;
+import com.mycompany.models.Ruta;
 import com.mycompany.models.TransaccionBancaria;
+import com.mycompany.models.Transportista;
 import com.mycompany.models.Ubicacion;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +22,7 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import main.PersistenceFacade;
 //import main.PersistenceFacade;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -174,9 +178,77 @@ public class PersistenceTest {
         /*******************************************************************
         CREACION DE DETALLES FACTURA
         ********************************************************************/
-        DetalleFactura dt1 = new DetalleFactura(dti1, f1, pev1, (float)(10), (float)(40000), false);
+        DetalleFactura dt1 = new DetalleFactura(dti1, f1, pev1, (float)(10), (float)(pev1.getPrecioPorKg()*10), false);
+        DetalleFactura dt2 = new DetalleFactura(dti2, f1, pev2, (float)(20), (float)(pev2.getPrecioPorKg()*20), false);
+        DetalleFactura dt3 = new DetalleFactura(dti3, f2, pev3, (float)(8), (float)(pev3.getPrecioPorKg()*8), false);
+        DetalleFactura dt4 = new DetalleFactura(dti4, f3, pev4, (float)(5), (float)(pev4.getPrecioPorKg()*5), false);
+        DetalleFactura dt5 = new DetalleFactura(dti5, f3, pev1, (float)(10), (float)(pev1.getPrecioPorKg()*10), false);
+        DetalleFactura dt6 = new DetalleFactura(dti6, f4, pev2, (float)(12), (float)(pev2.getPrecioPorKg()*12), false);
+        DetalleFactura dt7 = new DetalleFactura(dti7, f4, pev1, (float)(9), (float)(pev1.getPrecioPorKg()*9), false);
+        DetalleFactura dt8 = new DetalleFactura(dti8, f4, pev3, (float)(18), (float)(pev1.getPrecioPorKg()*18), false);
+        DetalleFactura dt9 = new DetalleFactura(dti9, f5, pev1, (float)(15), (float)(pev1.getPrecioPorKg()*15), false);
         session.save(dt1);
-        
+        session.save(dt2);
+        session.save(dt3);
+        session.save(dt4);
+        session.save(dt5);
+        session.save(dt6);
+        session.save(dt7);
+        session.save(dt8);
+        session.save(dt9);
+        /*******************************************************************
+        CREACION DE TRANSPORTISTAS
+        ********************************************************************/
+        Transportista t1 = new Transportista(123456789, "Brian", "O'Conner", "7894561");
+        Transportista t2 = new Transportista(741852963, "Dominic", "Toretto", "7418529");
+        Transportista t3 = new Transportista(963852741, "Dwane", "Jhonson", "9638527");
+        session.save(t1);
+        session.save(t2);
+        session.save(t3);
+        /*******************************************************************
+        CREACION DE RUTAS
+        ********************************************************************/
+        Ruta r1 = new Ruta(t1, new Date(2015-1900, 8, 10), new Date(2015-1900,8,10));
+        Ruta r2 = new Ruta(t1, new Date(2015-1900, 8, 10), new Date(2015-1900,8,11));
+        Ruta r3 = new Ruta(t2, new Date(2015-1900, 8, 12), new Date(2015-1900,8,12));
+        Ruta r4 = new Ruta(t2, new Date(2015-1900, 8, 15), new Date(2015-1900,8,16));
+        Ruta r5 = new Ruta(t2, new Date(2015-1900, 8, 10), new Date(2015-1900,8,11));
+        Ruta r6 = new Ruta(t2, new Date(2015-1900, 8, 20), new Date(2015-1900,8,20));
+        Ruta r7 = new Ruta(t3, new Date(2015-1900, 8, 12), new Date(2015-1900,8,12));
+        Ruta r8 = new Ruta(t3, new Date(2015-1900, 8, 12), new Date(2015-1900,8,12));
+        Ruta r9 = new Ruta(t3, new Date(2015-1900, 8, 15), new Date(2015-1900,8,16));
+        session.save(r1);
+        session.save(r2);
+        session.save(r3);
+        session.save(r4);
+        session.save(r5);
+        session.save(r6);
+        session.save(r7);
+        session.save(r8);
+        session.save(r9);
+        /*******************************************************************
+        CREACION DE DESPACHOS
+        ********************************************************************/
+        Despacho d1 = new Despacho(dt1, r1, new Date(2015-1900,8,10), new Date(2015-1900,8,10));
+        Despacho d2 = new Despacho(dt2, r2, new Date(2015-1900,8,10), new Date(2015-1900,8,11));
+        Despacho d3 = new Despacho(dt3, r3, new Date(2015-1900, 8, 12), new Date(2015-1900,8,12));
+        Despacho d4 = new Despacho(dt4, r4, new Date(2015-1900, 8, 15), new Date(2015-1900,8,16));
+        Despacho d5 = new Despacho(dt5, r5, new Date(2015-1900, 8, 10), new Date(2015-1900,8,11));
+        Despacho d6 = new Despacho(dt6, r6, new Date(2015-1900, 8, 20), new Date(2015-1900,8,20));
+        Despacho d7 = new Despacho(dt7, r7, new Date(2015-1900, 8, 12), new Date(2015-1900,8,12));
+        Despacho d8 = new Despacho(dt8, r8, new Date(2015-1900, 8, 12), new Date(2015-1900,8,12));
+        Despacho d9 = new Despacho(dt9, r9, new Date(2015-1900, 8, 15), new Date(2015-1900,8,16));
+        session.save(d1);
+        session.save(d2);
+        session.save(d3);
+        session.save(d4);
+        session.save(d5);
+        session.save(d6);
+        session.save(d7);
+        session.save(d8);
+        session.save(d9);
+        System.out.println("******************************************"+t3.getIdTransportistas());
+        PersistenceFacade.rutasPorTransportista(session, t3, null);
         
         assertTrue(true);
         tx.commit();
