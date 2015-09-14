@@ -17,7 +17,9 @@ import com.mycompany.models.TransaccionBancaria;
 import com.mycompany.models.Transportista;
 import com.mycompany.models.Ubicacion;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import main.PersistenceFacade;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -65,7 +67,7 @@ public class PersistenceTest {
         session.close();
         sessionFactory.close();
     }
-    
+           
     @Test
     public void consultarRutasAsignadas(){
         

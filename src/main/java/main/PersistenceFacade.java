@@ -24,14 +24,25 @@ import org.hibernate.Session;
  */
 public class PersistenceFacade {
     
-    
+    /**
+     * Consulta el Id de las rutas que tiene que recorrer un transportista en determinada fecha
+     * @param s Sesion de la base de datos
+     * @param p Producto que un minorista deseea comprar
+     * @param cantidad Cantidad que el minorista desea comprar
+     * @return Una lista con los campesinos que tienen la cantidad suficiente de producto para
+     * el minorista y que su producto se encuentra en buen estado para la venta. Esto ultimo se
+     * determina por el tiempo de la cosecha y la duracion estimada de cada producto
+     */    
     public static List<Campesino> campesinosPorProducto(Session s, Producto p, float cantidad){
         
-        Query q = s.createQuery("SELECT p FROM ProductoEnVenta p where p.productos.idProductos= :productoID and p.cantidadDisponible > :cantidad");
-        
+        Query q = s.createQuery("SELECT p.campesinos FROM ProductoEnVenta p where p.productos.idProductos= :productoID and p.cantidadDisponible > :cantidad "
+                + " and date_add_interval(p.fechaCosecha, p.productos.duracion, DAY) > :fechaActual");        
+        //);
         q.setParameter("productoID", p.getIdProductos());
         q.setParameter("cantidad", cantidad);
-        
+        q.setParameter("fechaActual", new Date(System.currentTimeMillis()));
+        List<Campesino>campesino = q.list();        
+        /*
         List<ProductoEnVenta> productos = q.list();
         
         List<Campesino> respuesta =  new ArrayList<>(0);
@@ -47,9 +58,10 @@ public class PersistenceFacade {
             gc.add(GregorianCalendar.DAY_OF_MONTH, pev.getProductos().getDuracion());
             
             sumada = gc.getTime();
-           
+            System.out.println(sumada.getDate()+" "+sumada.getMonth()+" "+sumada.getYear());
             if(ds.before(sumada)){
                 respuesta.add(pev.getCampesinos());
+                System.out.println(pev.getCampesinos().getNombres());
             }
 
         }
@@ -57,6 +69,8 @@ public class PersistenceFacade {
              
        
         return respuesta;
+        */
+        return campesino;
         
     }
     
