@@ -6,6 +6,7 @@
 package main;
 
 import com.mycompany.models.Campesino;
+import com.mycompany.models.DetalleFactura;
 import com.mycompany.models.Producto;
 import com.mycompany.models.ProductoEnVenta;
 import com.mycompany.models.Transportista;
@@ -107,5 +108,31 @@ public class PersistenceFacade {
         List<Integer> productos = q.list();
         return productos;
     }
+    
+    /**
+     * Consulta los productos comprados por los minoristas para ser despachados en una fecha determinada
+     * @param s Sesion de la base de sats
+     * @param idFacturas id´s de las facturas para las cuales se les desea saber el despacho de productos en determinada fecha
+     * @param d Fecha en la cual se desea conocer los productos a ser despachados
+     * @return Una lista con los producto a ser despachados en el fecha 2
+     */
+    public static  List<ProductoEnVenta> productosPorFechaDespacho(Session s, int[] idFacturas ,Date d){
+        
+        
+        String restante = "d.detalleFactura.facturas = "+idFacturas[0];
+        for (int i = 1; i < idFacturas.length; i++) {
+                restante += " OR d.detalleFactura.facturas = "+idFacturas[i];
+        }
+     
+        Query q = s.createQuery("SELECT d.detalleFactura.productosEnVenta FROM Despacho d WHERE d.estimacionEntrega = :fechaDespacho AND ( "+restante+" )");
+        q.setParameter("fechaDespacho", d);
+        
+        List<ProductoEnVenta> productos = q.list();
+        
+        
+        return productos;
+        
+    }
+    
     
 }

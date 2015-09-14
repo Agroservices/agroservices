@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="cosw1"/>
+  <table-filter match-name="TransaccionesBancarias"/>
+  <table-filter match-name="ProductosEnVenta"/>
+  <table-filter match-name="Novedades"/>
+  <table-filter match-name="Transportistas"/>
+  <table-filter match-name="Facturas"/>
+  <table-filter match-name="Productos"/>
+  <table-filter match-name="Ubicaciones"/>
+  <table-filter match-name="DetalleFactura"/>
+  <table-filter match-name="Despachos"/>
+  <table-filter match-name="Rutas"/>
+  <table-filter match-name="Campesinos"/>
+  <table-filter match-name="Vehiculos"/>
+  <table-filter match-name="Minoristas"/>
+</hibernate-reverse-engineering>
