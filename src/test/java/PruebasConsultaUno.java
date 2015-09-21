@@ -5,16 +5,8 @@
  */
 
 import com.mycompany.models.Campesino;
-import com.mycompany.models.Despacho;
-import com.mycompany.models.DetalleFactura;
-import com.mycompany.models.DetalleFacturaId;
-import com.mycompany.models.Factura;
-import com.mycompany.models.Minorista;
 import com.mycompany.models.Producto;
 import com.mycompany.models.ProductoEnVenta;
-import com.mycompany.models.Ruta;
-import com.mycompany.models.TransaccionBancaria;
-import com.mycompany.models.Transportista;
 import com.mycompany.models.Ubicacion;
 import java.util.Date;
 import java.util.HashSet;
@@ -133,15 +125,17 @@ public class PruebasConsultaUno {
             Se realizara la consulta de los campesinos que pueden proveer un
             determinado producto y se proseguira con la prueba
         *****************************************************/          
-        List <Campesino> answer = PersistenceFacade.campesinosPorProducto(session, p1, 20);
-        assertTrue("Se esperaba un conjunto con solo un campesino",answer.size()==1);
-        for(Campesino c: answer){
-            assertTrue("Se esperaba otro campesino",c.equals(c2));
-        }
-        assertTrue(true);
+        List <Object[]> answer = PersistenceFacade.campesinosPorProducto(session, p1, 20);
+        assertTrue("Se esperaba un conjunto con solo un campesino",answer.size()==1);        
+        Campesino c = (Campesino)answer.get(0)[0];        
+        float cost = (float)answer.get(0)[1];
+        assertTrue("Se esperaba otro campesino",c.equals(c2));        
+        assertTrue("Se esperaba un precio de 22000",(float)22000 == cost);           
+        int duracion = (int)answer.get(0)[2];
+        assertTrue("La duracion del producto debe ser mayor a 0",duracion>0);
         tx.rollback();
     }     
-     
+    
     @Test
     public void ningunCampesinoVendeUnDeterminadoProducto(){
         Transaction tx=session.beginTransaction();
@@ -202,7 +196,7 @@ public class PruebasConsultaUno {
             Se realizara la consulta de los campesinos que pueden proveer un
             determinado producto y se proseguira con la prueba
         *****************************************************/          
-        List <Campesino> answer = PersistenceFacade.campesinosPorProducto(session, p2, 20);
+        List <Object[]> answer = PersistenceFacade.campesinosPorProducto(session, p2, 20);
         assertTrue("Se esperaba un conjunto vacio",answer.size()==0);                
         tx.rollback();
     }     
@@ -266,7 +260,7 @@ public class PruebasConsultaUno {
             Se realizara la consulta de los campesinos que pueden proveer un
             determinado producto y se proseguira con la prueba
         *****************************************************/          
-        List <Campesino> answer = PersistenceFacade.campesinosPorProducto(session, p1, 10);
+        List <Object[]> answer = PersistenceFacade.campesinosPorProducto(session, p1, 10);
         assertTrue("Se esperaba un conjunto vacio",answer.size()==0);                
         tx.rollback();
     }     
@@ -330,7 +324,7 @@ public class PruebasConsultaUno {
             Se realizara la consulta de los campesinos que pueden proveer un
             determinado producto y se proseguira con la prueba
         *****************************************************/          
-        List <Campesino> answer = PersistenceFacade.campesinosPorProducto(session, p1, 1000);
+        List <Object[]> answer = PersistenceFacade.campesinosPorProducto(session, p1, 1000);
         assertTrue("Se esperaba un conjunto vacio",answer.size()==0);                
         tx.rollback();
     }     

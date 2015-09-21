@@ -6,16 +6,11 @@
 package main;
 
 import com.mycompany.models.Campesino;
-import com.mycompany.models.DetalleFactura;
 import com.mycompany.models.Producto;
 import com.mycompany.models.ProductoEnVenta;
 import com.mycompany.models.Transportista;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Set;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -32,46 +27,21 @@ public class PersistenceFacade {
      * @param cantidad Cantidad que el minorista desea comprar
      * @return Una lista con los campesinos que tienen la cantidad suficiente de producto para
      * el minorista y que su producto se encuentra en buen estado para la venta. Esto ultimo se
-     * determina por el tiempo de la cosecha y la duracion estimada de cada producto
+     * determina por el tiempo de la cosecha y la duracion estimada de cada producto. Ademas se muestra el costo
+     * del producto y el tiempo que tiene antes de vencerse en dias
      */    
-    public static List<Campesino> campesinosPorProducto(Session s, Producto p, float cantidad){
+    public static List<Object[]> campesinosPorProducto(Session s, Producto p, float cantidad){
         
-        Query q = s.createQuery("SELECT p.campesinos FROM ProductoEnVenta p where p.productos.idProductos= :productoID and p.cantidadDisponible > :cantidad "
+        Query q = s.createQuery("SELECT p.campesinos , cast_new(p.precioPorKg as DECIMAL) * :cantidad ,"
+                + " date_diff(date_add_interval(p.fechaCosecha, p.productos.duracion, DAY),:fechaActual)"
+                + " FROM ProductoEnVenta p  where p.productos.idProductos= :productoID and p.cantidadDisponible > :cantidad "
                 + " and date_add_interval(p.fechaCosecha, p.productos.duracion, DAY) > :fechaActual");        
         //);
         q.setParameter("productoID", p.getIdProductos());
         q.setParameter("cantidad", cantidad);
         q.setParameter("fechaActual", new Date(System.currentTimeMillis()));
-        List<Campesino>campesino = q.list();        
-        /*
-        List<ProductoEnVenta> productos = q.list();
-        
-        List<Campesino> respuesta =  new ArrayList<>(0);
-        Calendar gc = GregorianCalendar.getInstance();
-        
-        Date ds = new Date(System.currentTimeMillis());
-        System.out.println(ds.getYear()+" "+ds.getMonth()+" "+ds.getDate());
-        
-        Date sumada = null;
-        for (ProductoEnVenta pev : productos){
-            Date date = pev.getFechaCosecha();
-            gc.set(date.getYear()+1900, date.getMonth(), date.getDay());
-            gc.add(GregorianCalendar.DAY_OF_MONTH, pev.getProductos().getDuracion());
-            
-            sumada = gc.getTime();
-            System.out.println(sumada.getDate()+" "+sumada.getMonth()+" "+sumada.getYear());
-            if(ds.before(sumada)){
-                respuesta.add(pev.getCampesinos());
-                System.out.println(pev.getCampesinos().getNombres());
-            }
-
-        }
-        
-             
-       
-        return respuesta;
-        */
-        return campesino;
+        List<Object[]>consulta = q.list();                         
+        return consulta;
         
     }
     

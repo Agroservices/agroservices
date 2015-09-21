@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: PersistenceTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.444 sec
-=======
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.787 sec
->>>>>>> Consulta productos despacho fecha determinada
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.299 sec
